@@ -74,6 +74,8 @@ jobs:
           echo "$GPG_KEY" | gpg --batch --yes --import
       - name: checkout code
         uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.OTHER_TOKEN }}
       - name: build arm64 dir
         shell: bash
         env:
@@ -119,6 +121,8 @@ jobs:
           echo "$GPG_KEY" | gpg --batch --yes --import
       - name: checkout code
         uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.OTHER_TOKEN }}
       - name: build x86_64 dir
         shell: bash
         env:
@@ -168,6 +172,8 @@ jobs:
           echo "$GPG_KEY" | gpg --batch --yes --import
       - name: checkout code
         uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.OTHER_TOKEN }}
       - name: Download arm64 artifacts
         if: ${{ github.event_name != 'workflow_dispatch' || ( github.event_name == 'workflow_dispatch' && ( github.event.inputs.arch == 'both' || github.event.inputs.arch == 'aarch64' ) ) }}
         uses: actions/download-artifact@v7
@@ -260,6 +266,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: actions/checkout@v6
         with:
+          token: ${{ secrets.OTHER_TOKEN }}
           ref: 3bfa32a90c7bdd769a0e2235f66bd1aec0310ec3
       - name: sync to gh-pages branch repo dir and commit
         if: startsWith(github.ref, 'refs/tags/')
