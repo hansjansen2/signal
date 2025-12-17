@@ -34,24 +34,42 @@ jobs:
           echo "logic x86_64: ${{ github.event_name != 'workflow_dispatch' || ( github.event_name == 'workflow_dispatch' && ( github.event.inputs.arch == 'both' || github.event.inputs.arch == 'x86_64' ) ) }}"
 
 
-  a-publish-release:
-    if: startsWith(github.ref, 'refs/tags/')
-    #runs-on: self-hosted
-    runs-on: ubuntu-24.04
-    name: '1 publish release'
-    steps:
-      - name: Create Release
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: ncipollo/release-action@v1
-        id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          allowUpdates: true
-          draft: false
-          prerelease: false
-          name: ${{ github.ref }}
-          tag: ${{ github.ref }}
+  # a-publish-release:
+  #   if: startsWith(github.ref, 'refs/tags/')
+  #   #runs-on: self-hosted
+  #   runs-on: ubuntu-24.04
+  #   name: '1 publish release'
+  #   steps:
+  #     - name: Create Release
+  #       if: startsWith(github.ref, 'refs/tags/')
+  #       uses: ncipollo/release-action@v1
+  #       id: create_release
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         allowUpdates: true
+  #         draft: false
+  #         prerelease: false
+  #         name: ${{ github.ref }}
+  #         tag: ${{ github.ref }}
+a-publish-release:
+  if: startsWith(github.ref, 'refs/tags/')
+  runs-on: ubuntu-24.04
+  name: '1 publish release'
+  steps:
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: ncipollo/release-action@v1
+      id: create_release
+      env:
+        GITHUB_TOKEN: ${{ secrets.OTHER_TOKEN }}  # ← CHANGE 1: GITHUB_TOKEN → OTHER_TOKEN
+      with:
+        allowUpdates: true
+        draft: false
+        prerelease: false
+        name: Signal ${{ github.ref_name }}      # ← CHANGE 2: github.ref → github.ref_name
+        tag: ${{ github.ref_name }}             # ← CHANGE 3: github.ref → github.ref_name
+
 
   # build arm64 dir on an arm64 runner, then upload it for use in the flatpak section
   b-build-dir-arm64:
