@@ -72,7 +72,6 @@ jobs:
           sudo apt-get install -qq -y gpg openssh-client
           # echo "$GPG_KEY" | gpg --import
           echo "$GPG_KEY" | gpg --batch --yes --import
-          echo "$GPG_KEY" | gpg --batch --yes --import-secret-keys
       - name: checkout code
         uses: actions/checkout@v6
       - name: build arm64 dir
@@ -118,7 +117,6 @@ jobs:
           sudo apt-get install -qq -y gpg openssh-client
           # echo "$GPG_KEY" | gpg --import
           echo "$GPG_KEY" | gpg --batch --yes --import
-          echo "$GPG_KEY" | gpg --batch --yes --import-secret-keys
       - name: checkout code
         uses: actions/checkout@v6
       - name: build x86_64 dir
@@ -168,7 +166,6 @@ jobs:
           sudo apt-get install -qq -y gpg openssh-client
           # echo "$GPG_KEY" | gpg --import
           echo "$GPG_KEY" | gpg --batch --yes --import
-          echo "$GPG_KEY" | gpg --batch --yes --import-secret-keys
       - name: checkout code
         uses: actions/checkout@v6
       - name: Download arm64 artifacts
