@@ -217,14 +217,14 @@ jobs:
           df -h .
           # amd64
           if [[ "$build_x86_64" == "true" ]];then
-            flatpak-builder --user --install-deps-from=flathub --arch=x86_64 --gpg-sign=24A4146AB71978F9 --repo=/opt/pakrepo --force-clean .builddir flatpak.yml
+            flatpak-builder --user --install-deps-from=flathub --arch=x86_64 --gpg-sign=A2D4ED102F54FA8C --repo=/opt/pakrepo --force-clean .builddir flatpak.yml
             flatpak build-bundle --arch=x86_64 /opt/pakrepo ./signal_amd64.flatpak org.signal.Signal master
             sha256sum ./signal_amd64.flatpak | tee -a checksums.txt
           fi
           df -h .
           # arm64
           if [[ "$build_aarch64" == "true" ]];then
-            flatpak-builder --user --install-deps-from=flathub --arch=aarch64 --gpg-sign=24A4146AB71978F9 --repo=/opt/pakrepo --force-clean .builddir flatpak.yml
+            flatpak-builder --user --install-deps-from=flathub --arch=aarch64 --gpg-sign=A2D4ED102F54FA8C --repo=/opt/pakrepo --force-clean .builddir flatpak.yml
             flatpak build-bundle --arch=aarch64 /opt/pakrepo ./signal_arm64.flatpak org.signal.Signal master
             sha256sum ./signal_arm64.flatpak | tee -a checksums.txt
           fi
