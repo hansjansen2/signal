@@ -1,7 +1,8 @@
 name: run autobuild.sh
 on:
   schedule:
-    - cron: '0 1 * * 6'
+    # - cron: '0 1 * * 6'
+    - cron: '0 */6 * * *' # Every 6 hours: 0AM, 6AM, 12PM, 6PM UTC
   workflow_dispatch:
 jobs:
   autobuild-sh:
